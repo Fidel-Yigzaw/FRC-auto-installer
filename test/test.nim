@@ -1,17 +1,16 @@
-import winim
+import wAuto/mouse
+import wAuto/window
 
 proc main() =
 
-  
-  var title: LPSTR = "xRC Simulator"
-  let hwnd = FindWindowA(nil, title)
-
-  var placement: WINDOWPLACEMENT
-
+  let window = enumerate(window.title == "Timesheet")[0]
 
   while true:
-    GetWindowPlacement(hwnd, addr placement)
-    echo placement
+    let size = window.getClientSize()
+
+    echo(size)
+
+
 
 when isMainModule:
   main()

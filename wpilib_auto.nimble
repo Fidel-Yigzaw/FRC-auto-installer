@@ -11,4 +11,4 @@ bin           = @["wpilib_auto"]
 # Dependencies
 requires "nimlangserver >= 1.12.0"
 requires "nimlsp >= 0.4.7"
-requires "winim >= 3.9.4"
+requires "wAuto >= 1.3.0"

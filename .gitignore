@@ -3,3 +3,5 @@ nimblecache/
 htmldocs/
 testcache/
 buildcache/
+nimble.develop
+nimble.paths
