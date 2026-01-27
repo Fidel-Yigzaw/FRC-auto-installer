@@ -2,36 +2,45 @@
 
 try { rm build/* -r }
 
-print "Enter build type: (release, test, run, run-test)"
-input 
-| if $in == "release" {
-    (nim c 
-    -d:mingw
-    -d:($in)
-    --opt:size
-    -o:build/wpilib_auto.exe
-    --nimcache:build/buildcache
+def main [opt: string] {
+   match $opt {
+    "release" => {
+      (nim c 
+      -d:mingw
+      -d:release
+      --opt:size
+      -o:build/wpilib_auto.exe
+      --nimcache:build/buildcache
 
-    src/wpilib_auto.nim)
- } else if $in == "test" {
-    (nim c 
-    -d:mingw
-    -o:build/test.exe
-    --nimcache:build/testcache
+      src/wpilib_auto.nim)
+   },
+    "test" => {
+      (nim c 
+      -d:mingw
+      -o:build/test.exe
+      --nimcache:build/testcache
 
-    test/test.nim)
- } else if $in == "run" {
-    (nim r
-    -d:mingw
-    --opt:size
-    --nimcache:build/buildcache
+      test/test.nim)
+   },
+   "run" => {
+      (nim r
+      -d:mingw
+      --opt:size
+      --nimcache:build/buildcache
 
-    src/wpilib_auto.nim)
- } else if $in == "run-test" {
-    (nim r
-    -d:mingw
-    --nimcache:build/testcache
+      src/wpilib_auto.nim)
+   },
+   "run-test" => {
+      (nim r
+      -d:mingw
+      --nimcache:build/testcache
 
-    test/test.nim)
- } else { print $"Unknown build option: ($in)" ; exit 1}
-; exit 0
+      test/test.nim)
+   },
+    _ => {
+      print -e $"Unknown build option: ($opt)"
+      exit 1
+   }
+}
+   ; exit 0
+}

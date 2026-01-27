@@ -1,14 +1,32 @@
 import wAuto/mouse
 import wAuto/window
+import wAuto/process except windows
+
+import os
+import sugar
+import strutils
 
 proc main() =
 
-  let window = enumerate(window.title == "Timesheet")[0]
+  let notepad = try: enumerate(window.getTitle.contains("Notepad"))[0]
+                except IndexDefect:
+                  echo "Notepad not found"
+                  return
 
-  while true:
-    let size = window.getClientSize()
+  let 
+    rect = notepad.getRect()
 
-    echo(size)
+    (x, y, w, h) = (rect.x, rect.y, rect.width, rect.height)
+
+    center = (x: x + w div 2, y: y + h div 2)
+
+  discard execShellCmd("cls")
+  echo rect
+  echo center
+  move(center.x, center.y)
+
+
+
 
 
 
